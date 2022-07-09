@@ -1,0 +1,7 @@
+/.gitignore
+/.prettierrc.json
+/yarn.lock
+/tsconfig.json
+/.eslintrc.json
+/package.json
+/README.MD
