@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react'
-import PropTypes from 'prop-types'
+import { CSSTransition, TransitionGroup } from 'react-transition-group'
 
 import useMarvelApi from '../../api/marvelApi'
 import Spinner from '../spinner/Spinner'
@@ -68,41 +68,48 @@ const CharList = (props: CharListProps) => {
   }
 
   function renderItems(arr: ICharList[]) {
-    const items = arr.map((item, i) => {
-      return (
-        <li
-          className="char__item"
-          tabIndex={0}
-          ref={(el) => (itemRefs.current[i] = el)}
-          key={i}
-          onClick={() => {
-            onCharSelected(item.id)
-            focusOnItem(i)
-          }}
-          onKeyPress={(e) => {
-            if (e.key === ' ' || e.key === 'Enter') {
-              onCharSelected(item.id)
-              focusOnItem(i)
-            }
-          }}
-        >
-          <img
-            src={item.thumbnail}
-            alt={item.name}
-            style={{
-              objectFit: `${
-                item.thumbnail.includes('image_not_available')
-                  ? 'fill'
-                  : 'cover'
-              }`,
-            }}
-          />
-          <div className="char__name">{item.name}</div>
-        </li>
-      )
-    })
+    // const items = ;
 
-    return <ul className="char__grid">{items}</ul>
+    return (
+      <ul className="char__grid">
+        <TransitionGroup className="char__grid" component={null}>
+          {arr.map((item, i) => {
+            return (
+              <CSSTransition key={i} timeout={500} classNames="char__item">
+                <li
+                  className="char__item"
+                  tabIndex={0}
+                  ref={(el) => (itemRefs.current[i] = el)}
+                  onClick={() => {
+                    onCharSelected(item.id)
+                    focusOnItem(i)
+                  }}
+                  onKeyPress={(e) => {
+                    if (e.key === ' ' || e.key === 'Enter') {
+                      onCharSelected(item.id)
+                      focusOnItem(i)
+                    }
+                  }}
+                >
+                  <img
+                    src={item.thumbnail}
+                    alt={item.name}
+                    style={{
+                      objectFit: `${
+                        item.thumbnail.includes('image_not_available')
+                          ? 'fill'
+                          : 'cover'
+                      }`,
+                    }}
+                  />
+                  <div className="char__name">{item.name}</div>
+                </li>
+              </CSSTransition>
+            )
+          })}
+        </TransitionGroup>
+      </ul>
+    )
   }
 
   const items = renderItems(charList)
@@ -125,10 +132,6 @@ const CharList = (props: CharListProps) => {
       </button>
     </div>
   )
-}
-
-CharList.propTypes = {
-  onCharSelected: PropTypes.func.isRequired,
 }
 
 export default CharList
