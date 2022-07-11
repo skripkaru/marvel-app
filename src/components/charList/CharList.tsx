@@ -6,25 +6,17 @@ import Spinner from '../spinner/Spinner'
 import ErrorMessage from '../errorMessage/ErrorMessage'
 
 import './charList.scss'
+import placeholder from '../../resources/img/placeholder.svg'
+import { IChar } from '../../types'
 
 export interface CharListProps {
   onCharSelected: (id: number) => void
 }
 
-interface ICharList {
-  id: number
-  name: string
-  description: string
-  thumbnail: string
-  homepage: string
-  wiki: string
-  comics: any[]
-}
-
 const CharList = (props: CharListProps) => {
   const { onCharSelected } = props
 
-  const [charList, setCharList] = useState<ICharList[] | []>([])
+  const [charList, setCharList] = useState<IChar[] | []>([])
   const [newItemLoading, setNewItemLoading] = useState<boolean>(false)
   const [offset, setOffset] = useState<number>(210)
   const [charEnded, setCharEnded] = useState<boolean>(false)
@@ -35,7 +27,7 @@ const CharList = (props: CharListProps) => {
     onRequest(offset, true)
   }, [])
 
-  const onCharListLoaded = (newCharList: ICharList[]) => {
+  const onCharListLoaded = (newCharList: IChar[]) => {
     let ended = false
 
     if (newCharList.length < 9) {
@@ -67,15 +59,17 @@ const CharList = (props: CharListProps) => {
     itemRefs.current[id].focus()
   }
 
-  function renderItems(arr: ICharList[]) {
-    // const items = ;
-
+  function renderItems(arr: IChar[]) {
     return (
       <ul className="char__grid">
-        <TransitionGroup className="char__grid" component={null}>
+        <TransitionGroup component={null}>
           {arr.map((item, i) => {
             return (
-              <CSSTransition key={i} timeout={500} classNames="char__item">
+              <CSSTransition
+                key={item.id}
+                timeout={500}
+                classNames="char__item"
+              >
                 <li
                   className="char__item"
                   tabIndex={0}
@@ -92,15 +86,13 @@ const CharList = (props: CharListProps) => {
                   }}
                 >
                   <img
-                    src={item.thumbnail}
+                    src={
+                      item.thumbnail.includes('image_not_available') ||
+                      item.thumbnail.includes('4c002e0305708')
+                        ? placeholder
+                        : item.thumbnail
+                    }
                     alt={item.name}
-                    style={{
-                      objectFit: `${
-                        item.thumbnail.includes('image_not_available')
-                          ? 'fill'
-                          : 'cover'
-                      }`,
-                    }}
                   />
                   <div className="char__name">{item.name}</div>
                 </li>

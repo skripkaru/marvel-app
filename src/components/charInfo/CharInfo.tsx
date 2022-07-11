@@ -6,19 +6,11 @@ import Spinner from '../spinner/Spinner'
 import Skeleton from '../skeleton/Skeleton'
 
 import './charInfo.scss'
+import placeholder from '../../resources/img/placeholder.svg'
+import { IChar } from '../../types'
 
 interface CharInfoProps {
   charId: number
-}
-
-interface IChar {
-  id: number
-  name: string
-  description: string
-  thumbnail: string
-  homepage: string
-  wiki: string
-  comics: any[]
 }
 
 const CharInfo = (props: CharInfoProps) => {
@@ -40,6 +32,7 @@ const CharInfo = (props: CharInfoProps) => {
     clearError()
     if (!charId) return
 
+    // @ts-ignore
     getCharacter(charId).then(onCharLoaded)
   }
 
@@ -65,21 +58,31 @@ const View = (props: IChar) => {
     <>
       <div className="char__basics">
         <img
-          src={thumbnail}
+          src={
+            thumbnail.includes('image_not_available') ||
+            thumbnail.includes('4c002e0305708')
+              ? placeholder
+              : thumbnail
+          }
           alt={name}
-          style={{
-            objectFit: `${
-              thumbnail.includes('image_not_available') ? 'fill' : 'cover'
-            }`,
-          }}
         />
         <div>
           <div className="char__info-name">{name}</div>
           <div className="char__btns">
-            <a href={homepage} className="button button__main">
+            <a
+              className="button button__main"
+              href={homepage}
+              target="_blank"
+              rel="noreferrer"
+            >
               <div className="inner">homepage</div>
             </a>
-            <a href={wiki} className="button button__secondary">
+            <a
+              className="button button__secondary"
+              href={wiki}
+              target="_blank"
+              rel="noreferrer"
+            >
               <div className="inner">Wiki</div>
             </a>
           </div>
@@ -89,6 +92,7 @@ const View = (props: IChar) => {
       <div className="char__comics">Comics:</div>
       {comics.length ? (
         <ul className="char__comics-list">
+          {/*@ts-ignore*/}
           {comics.map((item, i) => {
             if (i > 9) return
             return (
