@@ -6,16 +6,11 @@ import Spinner from '../spinner/Spinner'
 import ErrorMessage from '../errorMessage/ErrorMessage'
 
 import './comicsList.scss'
-
-interface IComicsList {
-  id: number
-  title: string
-  thumbnail: string
-  price: number
-}
+import placeholder from '../../resources/img/placeholder.svg'
+import { IComic } from '../../types'
 
 const ComicsList = () => {
-  const [comicsList, setComicsList] = useState<IComicsList[]>([])
+  const [comicsList, setComicsList] = useState<IComic[]>([])
   const [offset, setOffset] = useState<number>(210)
   const [newItemLoading, setNewItemLoading] = useState<boolean>(false)
   const [comicsEnded, setComicsEnded] = useState<boolean>(false)
@@ -26,7 +21,7 @@ const ComicsList = () => {
     onRequest(offset, true)
   }, [])
 
-  const onComicsListLoaded = (newComicsList: IComicsList[]) => {
+  const onComicsListLoaded = (newComicsList: IComic[]) => {
     let ended = false
 
     if (newComicsList.length < 8) {
@@ -45,12 +40,17 @@ const ComicsList = () => {
     getAllComics(offset).then(onComicsListLoaded)
   }
 
-  const renderItems = (arr: IComicsList[]) => {
+  const renderItems = (arr: IComic[]) => {
     const items = arr.map((item, i) => (
       <li className="comics__item" key={i}>
         <Link to={`/comics/${item.id}`}>
           <img
-            src={item.thumbnail}
+            src={
+              item.thumbnail.includes('image_not_available') ||
+              item.thumbnail.includes('4c002e0305708')
+                ? placeholder
+                : item.thumbnail
+            }
             alt={item.title}
             className="comics__item-img"
           />

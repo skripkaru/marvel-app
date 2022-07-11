@@ -1,27 +1,28 @@
 import { useHttp } from '../hooks/useHttp'
+import { IChar, IComic } from '../types'
 
-interface IChar {
-  id: number
-  name: string
-  description: string
-  thumbnail: { path: string; extension: string }
-  urls: any[]
-  comics: {
-    items: [{ resourceURI: string; name: string }]
-  }
-}
-
-interface IComic {
-  id: number
-  title: string
-  description: string
-  pageCount: string
-  thumbnail: any
-  language: any
-  price: any
-  textObjects: any
-  prices: any
-}
+// interface IChar {
+//   id: number
+//   name: string
+//   description: string
+//   thumbnail: { path: string; extension: string }
+//   urls: any[]
+//   comics: {
+//     items: [{ resourceURI: string; name: string }]
+//   }
+// }
+//
+// interface IComic {
+//   id: number
+//   title: string
+//   description: string
+//   pageCount: string
+//   thumbnail: any
+//   language: any
+//   price: any
+//   textObjects: any
+//   prices: any
+// }
 
 const useMarvelApi = () => {
   const { loading, request, error, clearError } = useHttp()
@@ -42,6 +43,12 @@ const useMarvelApi = () => {
     const res = await request(`${_apiBase}characters/${id}?${_apiKey}`)
 
     return _transformCharacter(res.data.results[0])
+  }
+
+  const getCharacterByName = async (name: string) => {
+    const res = await request(`${_apiBase}characters?name=${name}&${_apiKey}`)
+
+    return res.data.results.map(_transformCharacter)
   }
 
   const _transformCharacter = (char: IChar) => {
@@ -91,6 +98,7 @@ const useMarvelApi = () => {
     clearError,
     getAllCharacters,
     getCharacter,
+    getCharacterByName,
     getAllComics,
     getComic,
   }

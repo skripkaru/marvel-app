@@ -6,16 +6,8 @@ import ErrorMessage from '../errorMessage/ErrorMessage'
 
 import './randomChar.scss'
 import mjolnir from '../../resources/img/mjolnir.png'
-
-interface IChar {
-  id: number
-  name: string
-  description: string
-  thumbnail: string
-  homepage: string
-  wiki: string
-  comics: any[]
-}
+import placeholder from '../../resources/img/placeholder.svg'
+import { IChar } from '../../types'
 
 const RandomChar = () => {
   const [char, setChar] = useState<IChar | null>(null)
@@ -39,6 +31,7 @@ const RandomChar = () => {
     clearError()
     const id = Math.floor(Math.random() * (1011400 - 1011000)) + 1011000
 
+    // @ts-ignore
     getCharacter(id).then(onCharLoaded)
   }
 
@@ -74,22 +67,32 @@ const View = (props: IChar) => {
     <div className="randomchar__block">
       <img
         className="randomchar__img"
-        src={thumbnail}
+        src={
+          thumbnail.includes('image_not_available') ||
+          thumbnail.includes('4c002e0305708')
+            ? placeholder
+            : thumbnail
+        }
         alt={name}
-        style={{
-          objectFit: `${
-            thumbnail.includes('image_not_available') ? 'fill' : 'cover'
-          }`,
-        }}
       />
       <div className="randomchar__info">
         <p className="randomchar__name">{name}</p>
         <p className="randomchar__descr">{description}</p>
         <div className="randomchar__btns">
-          <a className="button button__main" href={homepage}>
+          <a
+            className="button button__main"
+            href={homepage}
+            target="_blank"
+            rel="noreferrer"
+          >
             <div className="inner">homepage</div>
           </a>
-          <a className="button button__secondary" href={wiki}>
+          <a
+            className="button button__secondary"
+            href={wiki}
+            target="_blank"
+            rel="noreferrer"
+          >
             <div className="inner">Wiki</div>
           </a>
         </div>
