@@ -1,35 +1,12 @@
 import { useHttp } from '../hooks/useHttp'
 import { IChar, IComic } from '../types'
 
-// interface IChar {
-//   id: number
-//   name: string
-//   description: string
-//   thumbnail: { path: string; extension: string }
-//   urls: any[]
-//   comics: {
-//     items: [{ resourceURI: string; name: string }]
-//   }
-// }
-//
-// interface IComic {
-//   id: number
-//   title: string
-//   description: string
-//   pageCount: string
-//   thumbnail: any
-//   language: any
-//   price: any
-//   textObjects: any
-//   prices: any
-// }
-
 const useMarvelApi = () => {
   const { loading, request, error, clearError } = useHttp()
 
   const _apiBase = 'https://gateway.marvel.com:443/v1/public/'
   const _apiKey = 'apikey=d10e550a9145445d1cc3ba067a855fe0'
-  const _baseOffset = 210
+  const _baseOffset = 197
 
   const getAllCharacters = async (offset = _baseOffset) => {
     const res = await request(

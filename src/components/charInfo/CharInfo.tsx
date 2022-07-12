@@ -92,7 +92,7 @@ const View = (props: IChar) => {
       <div className="char__comics">Comics:</div>
       {comics.length ? (
         <ul className="char__comics-list">
-          {/*@ts-ignore*/}
+          {/* @ts-ignore*/}
           {comics.map((item, i) => {
             if (i > 9) return
             return (
