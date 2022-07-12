@@ -11,7 +11,7 @@ import { IComic } from '../../types'
 
 const ComicsList = () => {
   const [comicsList, setComicsList] = useState<IComic[]>([])
-  const [offset, setOffset] = useState<number>(210)
+  const [offset, setOffset] = useState<number>(48)
   const [newItemLoading, setNewItemLoading] = useState<boolean>(false)
   const [comicsEnded, setComicsEnded] = useState<boolean>(false)
 

@@ -18,7 +18,7 @@ const CharList = (props: CharListProps) => {
 
   const [charList, setCharList] = useState<IChar[] | []>([])
   const [newItemLoading, setNewItemLoading] = useState<boolean>(false)
-  const [offset, setOffset] = useState<number>(210)
+  const [offset, setOffset] = useState<number>(197)
   const [charEnded, setCharEnded] = useState<boolean>(false)
 
   const { getAllCharacters, loading, error } = useMarvelApi()
@@ -50,9 +50,7 @@ const CharList = (props: CharListProps) => {
 
   const focusOnItem = (id: number) => {
     // @ts-ignore
-    itemRefs.current.forEach((item) =>
-      item.classList.remove('char__item_selected')
-    )
+    itemRefs.current.forEach((item) => item.classList.remove('char__item_selected'))
     // @ts-ignore
     itemRefs.current[id].classList.add('char__item_selected')
     // @ts-ignore
@@ -65,11 +63,7 @@ const CharList = (props: CharListProps) => {
         <TransitionGroup component={null}>
           {arr.map((item, i) => {
             return (
-              <CSSTransition
-                key={item.id}
-                timeout={500}
-                classNames="char__item"
-              >
+              <CSSTransition key={item.id} timeout={500} classNames="char__item">
                 <li
                   className="char__item"
                   tabIndex={0}
