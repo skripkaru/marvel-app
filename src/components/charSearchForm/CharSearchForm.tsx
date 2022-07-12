@@ -63,11 +63,11 @@ const CharSearchForm = () => {
         </Form>
       </Formik>
 
-      {/*@ts-ignore*/}
+      {/* @ts-ignore*/}
       {char && char.length > 0 ? (
         <div className="char__search-wrapper">
           <div className="char__search-success">
-            {/*@ts-ignore*/}
+            {/* @ts-ignore*/}
             There is! Visit {char[0].name} page?
           </div>
           <Link

@@ -50,7 +50,9 @@ const CharList = (props: CharListProps) => {
 
   const focusOnItem = (id: number) => {
     // @ts-ignore
-    itemRefs.current.forEach((item) => item.classList.remove('char__item_selected'))
+    itemRefs.current.forEach((item) =>
+      item.classList.remove('char__item_selected')
+    )
     // @ts-ignore
     itemRefs.current[id].classList.add('char__item_selected')
     // @ts-ignore
@@ -63,7 +65,11 @@ const CharList = (props: CharListProps) => {
         <TransitionGroup component={null}>
           {arr.map((item, i) => {
             return (
-              <CSSTransition key={item.id} timeout={500} classNames="char__item">
+              <CSSTransition
+                key={item.id}
+                timeout={500}
+                classNames="char__item"
+              >
                 <li
                   className="char__item"
                   tabIndex={0}

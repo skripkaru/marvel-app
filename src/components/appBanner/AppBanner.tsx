@@ -1,6 +1,6 @@
 import './appBanner.scss'
-import avengers from '../../resources/img/Avengers.png'
-import avengersLogo from '../../resources/img/Avengers_logo.png'
+import avengers from '../../resources/img/avengers.png'
+import avengersLogo from '../../resources/img/avengers-logo.png'
 
 const AppBanner = () => {
   return (
