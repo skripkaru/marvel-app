@@ -25,10 +25,11 @@
     "prettier"
   ],
   "rules":{
+    "@typescript-eslint/ban-types": "off",
     "@typescript-eslint/ban-ts-comment": "off",
     "react/react-in-jsx-scope": "off",
     "camelcase": "error",
-    "spaced-comment": "error",
+    "spaced-comment": "off",
     "quotes": ["error", "single"],
     "no-duplicate-imports": "error"
   }
