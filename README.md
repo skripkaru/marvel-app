@@ -14,6 +14,12 @@ A platform for searching and browsing information about the characters and comic
 
 **Client:** React, TypeScript, Hooks, Router, Fetch, Marvel API
 
+## Features
+
+- Loading heroes and comics from the server
+- Search for heroes
+- Random hero generation
+
 ## Installation
 
 Install marvel-app with yarn
